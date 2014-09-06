@@ -1,0 +1,19 @@
+Braindead Password Generator
+============================
+
+REQUIRES QT.
+
+This is a targeted password generator for targeting a specific person, It uses their name and company as well as keywords to generate passwords.
+
+It's MIT Licensed and writted in Qt. 
+
+I have written to scractch a specifc itch of my own but this should be useful to others. It's also my first project in Qt so i'm learning.
+
+It's not quite a featured as I wanted it.
+
+TODO
+----
+
+Use weighting system to concentrate on popular passwords style in a enterprise. At the moment Name and company are treated no different than keywords. Ie they all go in the bag and get mixed together an leeted. This should be changed as IMHO users will gravitate to using the company name / there name in passwords so this shoudl be weighted.
+
+Testing, it has had none, I'm pretty sure it will break if you don't input correct data.
