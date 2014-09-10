@@ -394,6 +394,32 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="pushButtonCheckAll">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>280</y>
+      <width>111</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Check All</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonUncheckAll">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>250</y>
+      <width>114</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Uncheck All</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

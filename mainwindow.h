@@ -47,6 +47,10 @@ private slots:
 
     void on_checkBoxPasswordJoin_stateChanged(int arg1);
 
+    void on_pushButtonUncheckAll_clicked();
+
+    void on_pushButtonCheckAll_clicked();
+
 private:
     Ui::MainWindow *ui;
     QList<QString> m_passwords;

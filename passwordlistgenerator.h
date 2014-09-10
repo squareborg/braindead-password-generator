@@ -46,6 +46,8 @@ public:
     void setSuffixes(QList<QString> suffixes);
     QList<QString> getSuffixes();
     void setKeywords(QList<QString> keywords);
+    QList<QString> getComboList();
+    void setComboList(QList<QString> combo_list);
     QList<QString> generatePasswords();
 
 
@@ -56,6 +58,7 @@ private:
     QList<QString> m_keywords;
     QList<QString> m_prefixes;
     QList<QString> m_suffixes;
+    QList<QString> m_combo_list;
 
 };
 

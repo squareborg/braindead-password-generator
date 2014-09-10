@@ -24,6 +24,23 @@
 #include <QDebug>
 #include <QHash>
 
+QString ucFirst(const QString str) {
+    if (str.size() < 1) {
+        return "";
+    }
+
+    QStringList tokens = str.split(" ");
+    QList<QString>::iterator tokItr = tokens.begin();
+
+    for (tokItr = tokens.begin(); tokItr != tokens.end(); ++tokItr) {
+        (*tokItr) = (*tokItr).at(0).toUpper() + (*tokItr).mid(1);
+    }
+
+    return tokens.join(" ");
+}
+
+
+
 PasswordListGenerator::PasswordListGenerator()
 {
 }
@@ -72,9 +89,29 @@ QList<QString> PasswordListGenerator::getSuffixes(){
 void PasswordListGenerator::setSuffixes(QList<QString> suffixes){
     m_suffixes = suffixes;
 }
+
+void PasswordListGenerator::setComboList(QList<QString> combo_list){
+    m_combo_list = combo_list;
+}
+QList<QString> PasswordListGenerator::getComboList(){
+    return m_combo_list;
+}
+
 QList<QString> PasswordListGenerator::generatePasswords(){
+    qDebug() << "here it is";
+    qDebug() << ucFirst("ste");
+    qDebug() << "Did it work";
     QList<QString> password_list;
-    password_list.append(m_company);
+    if (!m_f_name.isEmpty())
+        password_list.append(m_f_name);
+    if (!m_l_name.isEmpty())
+        password_list.append(m_l_name);
+    if (!m_company.isEmpty())
+        password_list.append(m_company);
+    if(!m_keywords.empty()){
+        qDebug() << "Adding keywords";
+        password_list.append(m_keywords);
+    }
     if(do_username_combo){
         //generate passwords based on possible username
         QList<QString> username_list;
@@ -95,15 +132,6 @@ QList<QString> PasswordListGenerator::generatePasswords(){
         username_list.append(QString(m_f_name[0])+"_"+QString(m_l_name[0]));
         password_list.append(username_list);
     }
-
-    if(!m_keywords.empty()){
-        qDebug() << "Adding keywords";
-        password_list.append(m_keywords);
-    }
-
-
-
-
 
     if(do_leet){
         QHash<QChar,QChar> leet_map;
@@ -142,7 +170,7 @@ QList<QString> PasswordListGenerator::generatePasswords(){
                 temp_password_all[leetable_index.keys()[i2]] = leet_map[leetable_index[leetable_index.keys()[i2]]];
                 //qDebug() << "Temp password: "+temp_password;
                 leeted_list.append(temp_password);
-                if(do_leet_all)
+                if(do_leet_all && temp_password_all!=temp_password)
                     leeted_list.append(temp_password_all);
                 //s[]
             }
@@ -150,6 +178,7 @@ QList<QString> PasswordListGenerator::generatePasswords(){
 
         }
     password_list.append(leeted_list);
+
     }
 
 
@@ -161,14 +190,18 @@ QList<QString> PasswordListGenerator::generatePasswords(){
         foreach(QString p,password_list){
             //qDebug() << "word: " << p;
             foreach(QString ps,password_list){
+                foreach(QString join_char,m_combo_list){
+                    joined_list.append(p+join_char+ps);
+                }
                 joined_list.append(p+ps);
-
             }
         }
+
         password_list.append(joined_list);
     }
 
     if (!m_prefixes.isEmpty() || !m_suffixes.empty()){
+        qDebug() << "Doing prefix/suffix";
         QList<QString> prefixed_list;
         foreach (QString p,password_list){
             if (!m_prefixes.isEmpty()){
@@ -201,10 +234,21 @@ QList<QString> PasswordListGenerator::generatePasswords(){
         qDebug() << "Doing case";
         QList<QString> cased_list;
         foreach (QString s, password_list){
+//            qDebug() << "case password:" << s;
             if(do_case){
-            cased_list.append(s.toUpper());
-            cased_list.append(s.toLower());
-            cased_list.append(s.toCaseFolded());
+                if (s!=s.toUpper())
+                    cased_list.append(s.toUpper());
+                if (s!=s.toLower())
+                    cased_list.append(s.toLower());
+//                qDebug() << "S: " << s;
+//                qDebug() << "S UC: " << ucFirst(s);
+                //Input maybe all upper case
+                QString lowerCaseS =s.toLower();
+                QString ucFirstS = ucFirst(lowerCaseS);
+                if (s!=ucFirstS){
+                    cased_list.append(ucFirstS);
+//                    qDebug() << "appending company";
+                }
             }
         }
 
@@ -212,16 +256,22 @@ QList<QString> PasswordListGenerator::generatePasswords(){
     password_list.append(cased_list);
     }
 
-
+    //remove dupes
+    QSet<QString> set;
+    foreach (QString s, password_list){
+       qDebug() << s;
+       set.insert(s);
+    }
+    password_list = set.toList();
     if(do_sort){
         qDebug() << "Sorting...";
         qSort(password_list.begin(),password_list.end());
     }
+    qDebug() << "FULL LIST";
 
-    foreach (QString s, password_list){
-       //qDebug() << s;
-    }
     qDebug() << "Done";
     qDebug() << "Generated: " << password_list.count();
+
+
     return password_list;
 }

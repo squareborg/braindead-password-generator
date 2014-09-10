@@ -57,23 +57,48 @@ void MainWindow::on_pushButton_clicked()
     PasswordListGenerator pgen;
     if (ui->checkBoxCase->isChecked())
         pgen.do_case = true;
+    else
+        pgen.do_case = false;
     if (ui->checkBoxUsernameCombo->isChecked())
             pgen.do_username_combo = true;
+    else
+        pgen.do_username_combo = false;
     if (ui->checkBoxPasswordJoin->isChecked())
             pgen.do_password_join = true;
+    else
+        pgen.do_password_join = false;
     if (ui->checkBoxLeet->isChecked())
             pgen.do_leet = true;
+    else
+        pgen.do_leet = false;
     if (ui->checkBoxLeetAll->isChecked())
             pgen.do_leet_all = true;
+    else
+        pgen.do_leet_all = false;
     if (ui->checkBoxSortPasswords->isChecked())
             pgen.do_sort = true;
-    QString keywords_text = ui->plainTextEditKeywords->toPlainText();
-    pgen.setKeywords(keywords_text.split('\n'));
+    else
+        pgen.do_sort = false;
+    if (ui->plainTextEditKeywords->toPlainText().count()>0){
+        QString keywords_text = ui->plainTextEditKeywords->toPlainText();
+        pgen.setKeywords(keywords_text.split('\n'));
+    }
     pgen.setFName(ui->lineEditFirstName->text());
     pgen.setLName(ui->lineEditLastName->text());
     pgen.setCompany(ui->lineEditCompany->text());
-    pgen.setPrefixes(ui->lineEditPrefixSymbols->text().split(','));
-    pgen.setSuffixes(ui->lineEditSuffixSymbols_2->text().split(','));
+    if (ui->lineEditPrefixSymbols->text().length()>0){
+        qDebug() << "Prefix Symbols not null so adding to pgen";
+        pgen.setPrefixes(ui->lineEditPrefixSymbols->text().split(','));
+    }
+    if (ui->lineEditSuffixSymbols_2->text().length()>0){
+        qDebug() << "Suffix Symbols not null so adding to pgen";
+        pgen.setSuffixes(ui->lineEditSuffixSymbols_2->text().split(','));
+    }
+    if (ui->lineEditPasswordJoinChars->text().length()>0){
+        qDebug() << "Suffix Symbols not null so adding to pgen";
+        pgen.setComboList(ui->lineEditPasswordJoinChars->text().split(','));
+    }
+
     m_passwords = pgen.generatePasswords();
     ui->lcdNumber->display(m_passwords.count());
 
@@ -101,4 +126,26 @@ void MainWindow::on_checkBoxPasswordJoin_stateChanged(int arg1)
         ui->lineEditPasswordJoinChars->setEnabled(true);
     else
         ui->lineEditPasswordJoinChars->setEnabled(false);
+}
+
+
+
+void MainWindow::on_pushButtonUncheckAll_clicked()
+{
+    ui->checkBoxCase->setChecked(false);
+    ui->checkBoxLeet->setChecked(false);
+    ui->checkBoxLeetAll->setChecked(false);
+    ui->checkBoxPasswordJoin->setChecked(false);
+    ui->checkBoxSortPasswords->setChecked(false);
+    ui->checkBoxUsernameCombo->setChecked(false);
+}
+
+void MainWindow::on_pushButtonCheckAll_clicked()
+{
+    ui->checkBoxCase->setChecked(true);
+    ui->checkBoxLeet->setChecked(true);
+    ui->checkBoxLeetAll->setChecked(true);
+    ui->checkBoxPasswordJoin->setChecked(true);
+    ui->checkBoxSortPasswords->setChecked(true);
+    ui->checkBoxUsernameCombo->setChecked(true);
 }
