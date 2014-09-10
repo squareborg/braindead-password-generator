@@ -45,6 +45,8 @@ private slots:
 
     void on_pushButtonSavePasswords_clicked();
 
+    void on_checkBoxPasswordJoin_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     QList<QString> m_passwords;

@@ -141,7 +141,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="General">
      <attribute name="title">
@@ -195,36 +195,14 @@
        <string>Join passwords combo</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBoxAdd1">
+     <widget class="QLineEdit" name="lineEditPasswordJoinChars">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>30</x>
         <y>70</y>
-        <width>191</width>
-        <height>20</height>
+        <width>113</width>
+        <height>21</height>
        </rect>
-      </property>
-      <property name="statusTip">
-       <string>Adds the number 1 to the end of passwords.</string>
-      </property>
-      <property name="text">
-       <string>Add 1</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxAddBang">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>90</y>
-        <width>191</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="statusTip">
-       <string>Adds a ! at the end of word (after 1) if selected.</string>
-      </property>
-      <property name="text">
-       <string>Add !</string>
       </property>
      </widget>
     </widget>
@@ -262,6 +240,69 @@
       </property>
       <property name="text">
        <string>Leet All</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>Prefix/Suffix</string>
+     </attribute>
+     <widget class="QLineEdit" name="lineEditPrefixSymbols">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>10</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Comma seperated list of symbols to prefix each word.</string>
+      </property>
+      <property name="statusTip">
+       <string>Comma seperated list of symbols to prefix each word.</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Prefix Symbols</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Suffix Symbols</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditSuffixSymbols_2">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>40</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Comma seperated list of symbols to suffix each word.</string>
+      </property>
+      <property name="statusTip">
+       <string>Comma seperated list of symbols to suffix each word.</string>
       </property>
      </widget>
     </widget>
@@ -310,11 +351,14 @@
     <widget class="QLCDNumber" name="lcdNumber">
      <property name="geometry">
       <rect>
-       <x>160</x>
+       <x>150</x>
        <y>30</y>
-       <width>64</width>
+       <width>101</width>
        <height>23</height>
       </rect>
+     </property>
+     <property name="digitCount">
+      <number>9</number>
      </property>
     </widget>
     <widget class="QLabel" name="label">

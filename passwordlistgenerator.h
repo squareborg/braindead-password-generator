@@ -33,8 +33,6 @@ public:
     bool do_password_join;
     bool do_leet;
     bool do_leet_all;
-    bool do_number;
-    bool do_symbol;
     bool do_sort;
     QString getFName();
     void setFName(QString f_name);
@@ -43,14 +41,21 @@ public:
     QString getCompany();
     void setCompany(QString company);
     QList<QString> getKeywords();
+    void setPrefixes(QList<QString> prefixes);
+    QList<QString> getPrefixes();
+    void setSuffixes(QList<QString> suffixes);
+    QList<QString> getSuffixes();
     void setKeywords(QList<QString> keywords);
     QList<QString> generatePasswords();
+
 
 private:
     QString m_f_name;
     QString m_l_name;
     QString m_company;
     QList<QString> m_keywords;
+    QList<QString> m_prefixes;
+    QList<QString> m_suffixes;
 
 };
 

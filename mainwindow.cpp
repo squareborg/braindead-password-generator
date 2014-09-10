@@ -65,10 +65,6 @@ void MainWindow::on_pushButton_clicked()
             pgen.do_leet = true;
     if (ui->checkBoxLeetAll->isChecked())
             pgen.do_leet_all = true;
-    if (ui->checkBoxAdd1->isChecked())
-            pgen.do_number = true;
-    if (ui->checkBoxAddBang->isChecked())
-            pgen.do_symbol = true;
     if (ui->checkBoxSortPasswords->isChecked())
             pgen.do_sort = true;
     QString keywords_text = ui->plainTextEditKeywords->toPlainText();
@@ -76,6 +72,8 @@ void MainWindow::on_pushButton_clicked()
     pgen.setFName(ui->lineEditFirstName->text());
     pgen.setLName(ui->lineEditLastName->text());
     pgen.setCompany(ui->lineEditCompany->text());
+    pgen.setPrefixes(ui->lineEditPrefixSymbols->text().split(','));
+    pgen.setSuffixes(ui->lineEditSuffixSymbols_2->text().split(','));
     m_passwords = pgen.generatePasswords();
     ui->lcdNumber->display(m_passwords.count());
 
@@ -93,4 +91,14 @@ void MainWindow::on_pushButtonSavePasswords_clicked()
     out << password+"\n";
     }
     file.close();
+}
+
+
+
+void MainWindow::on_checkBoxPasswordJoin_stateChanged(int arg1)
+{
+    if (ui->checkBoxPasswordJoin->isChecked())
+        ui->lineEditPasswordJoinChars->setEnabled(true);
+    else
+        ui->lineEditPasswordJoinChars->setEnabled(false);
 }
