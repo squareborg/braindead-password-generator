@@ -23,6 +23,8 @@
 #include "passwordlistgenerator.h"
 #include <QDebug>
 #include <QHash>
+#include <QFuture>
+#include <QtConcurrent>
 
 QString ucFirst(const QString str) {
     if (str.size() < 1) {
@@ -93,15 +95,22 @@ void PasswordListGenerator::setSuffixes(QList<QString> suffixes){
 void PasswordListGenerator::setComboList(QList<QString> combo_list){
     m_combo_list = combo_list;
 }
+
+
 QList<QString> PasswordListGenerator::getComboList(){
     return m_combo_list;
 }
 
-QList<QString> PasswordListGenerator::generatePasswords(){
+void PasswordListGenerator::startPasswordGeneration(){
+     QFuture<void> future = QtConcurrent::run(this,&PasswordListGenerator::generatePasswords);
+
+}
+
+void PasswordListGenerator::generatePasswords(){
     qDebug() << "here it is";
     qDebug() << ucFirst("ste");
     qDebug() << "Did it work";
-    QList<QString> password_list;
+
     if (!m_f_name.isEmpty())
         password_list.append(m_f_name);
     if (!m_l_name.isEmpty())
@@ -259,7 +268,7 @@ QList<QString> PasswordListGenerator::generatePasswords(){
     //remove dupes
     QSet<QString> set;
     foreach (QString s, password_list){
-       qDebug() << s;
+       //qDebug() << "Set add: " << s;
        set.insert(s);
     }
     password_list = set.toList();
@@ -267,11 +276,12 @@ QList<QString> PasswordListGenerator::generatePasswords(){
         qDebug() << "Sorting...";
         qSort(password_list.begin(),password_list.end());
     }
-    qDebug() << "FULL LIST";
 
     qDebug() << "Done";
     qDebug() << "Generated: " << password_list.count();
+    emit passwordGenerationComplete();
 
 
-    return password_list;
 }
+
+

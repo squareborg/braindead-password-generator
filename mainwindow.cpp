@@ -25,12 +25,15 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QFile>
-#include "passwordlistgenerator.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    m_pgen = new PasswordListGenerator;
+    connect(this,SIGNAL(readyToStartGenerating()),m_pgen,SLOT(startPasswordGeneration()));
+    connect(m_pgen,SIGNAL(passwordGenerationComplete()),this,SLOT(generationComplete()));
+
     ui->setupUi(this);
     ui->checkBoxUsernameCombo->setChecked(true);
     ui->checkBoxLeet->setChecked(true);
@@ -42,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     lcdpalette.setColor(QPalette::AlternateBase, QColor(0, 0, 0));
     ui->lcdNumber->setPalette(lcdpalette);
     ui->lcdNumber->setAutoFillBackground(true);
+    ui->labelGeneratedPasswords->setText("No passwords generated yet.");
 
 }
 
@@ -52,56 +56,68 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    qDebug() << "Clicked!";
+
+    ui->labelGeneratedPasswords->setText("Working please wait...");
+    ui->lcdNumber->display(0);
     ui->pushButtonSavePasswords->setEnabled(true);
-    PasswordListGenerator pgen;
     if (ui->checkBoxCase->isChecked())
-        pgen.do_case = true;
+        m_pgen->do_case = true;
     else
-        pgen.do_case = false;
+        m_pgen->do_case = false;
     if (ui->checkBoxUsernameCombo->isChecked())
-            pgen.do_username_combo = true;
+            m_pgen->do_username_combo = true;
     else
-        pgen.do_username_combo = false;
+        m_pgen->do_username_combo = false;
     if (ui->checkBoxPasswordJoin->isChecked())
-            pgen.do_password_join = true;
+            m_pgen->do_password_join = true;
     else
-        pgen.do_password_join = false;
+        m_pgen->do_password_join = false;
     if (ui->checkBoxLeet->isChecked())
-            pgen.do_leet = true;
+            m_pgen->do_leet = true;
     else
-        pgen.do_leet = false;
+        m_pgen->do_leet = false;
     if (ui->checkBoxLeetAll->isChecked())
-            pgen.do_leet_all = true;
+            m_pgen->do_leet_all = true;
     else
-        pgen.do_leet_all = false;
+        m_pgen->do_leet_all = false;
     if (ui->checkBoxSortPasswords->isChecked())
-            pgen.do_sort = true;
+            m_pgen->do_sort = true;
     else
-        pgen.do_sort = false;
+        m_pgen->do_sort = false;
     if (ui->plainTextEditKeywords->toPlainText().count()>0){
         QString keywords_text = ui->plainTextEditKeywords->toPlainText();
-        pgen.setKeywords(keywords_text.split('\n'));
+        m_pgen->setKeywords(keywords_text.split('\n'));
     }
-    pgen.setFName(ui->lineEditFirstName->text());
-    pgen.setLName(ui->lineEditLastName->text());
-    pgen.setCompany(ui->lineEditCompany->text());
+    m_pgen->setFName(ui->lineEditFirstName->text());
+    m_pgen->setLName(ui->lineEditLastName->text());
+    m_pgen->setCompany(ui->lineEditCompany->text());
     if (ui->lineEditPrefixSymbols->text().length()>0){
-        qDebug() << "Prefix Symbols not null so adding to pgen";
-        pgen.setPrefixes(ui->lineEditPrefixSymbols->text().split(','));
+        qDebug() << "Prefix Symbols not null so adding to m_pgen";
+        m_pgen->setPrefixes(ui->lineEditPrefixSymbols->text().split(','));
     }
     if (ui->lineEditSuffixSymbols_2->text().length()>0){
-        qDebug() << "Suffix Symbols not null so adding to pgen";
-        pgen.setSuffixes(ui->lineEditSuffixSymbols_2->text().split(','));
+        qDebug() << "Suffix Symbols not null so adding to m_pgen";
+        m_pgen->setSuffixes(ui->lineEditSuffixSymbols_2->text().split(','));
     }
     if (ui->lineEditPasswordJoinChars->text().length()>0){
-        qDebug() << "Suffix Symbols not null so adding to pgen";
-        pgen.setComboList(ui->lineEditPasswordJoinChars->text().split(','));
+        qDebug() << "Suffix Symbols not null so adding to m_pgen";
+        m_pgen->setComboList(ui->lineEditPasswordJoinChars->text().split(','));
     }
 
-    m_passwords = pgen.generatePasswords();
-    ui->lcdNumber->display(m_passwords.count());
 
+    ui->statusBar->setStatusTip("Generating please wait...");
+    ui->labelGeneratedPasswords->setText("Please wait...");
+    emit readyToStartGenerating();
+}
+
+void MainWindow::startGenerating(){
+
+}
+
+void MainWindow::generationComplete(){
+     ui->lcdNumber->display(m_pgen->password_list.count());
+     ui->statusBar->setStatusTip("Done please save passwords to file.");
+     ui->labelGeneratedPasswords->setText("Passwords generated.");
 }
 
 void MainWindow::on_pushButtonSavePasswords_clicked()
@@ -112,7 +128,7 @@ void MainWindow::on_pushButtonSavePasswords_clicked()
     QFile file(file_name);
        file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
-    foreach (QString password, m_passwords){
+    foreach (QString password, m_pgen->password_list){
     out << password+"\n";
     }
     file.close();

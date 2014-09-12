@@ -361,7 +361,7 @@
       <number>9</number>
      </property>
     </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="labelGeneratedPasswords">
      <property name="geometry">
       <rect>
        <x>150</x>

@@ -27,6 +27,7 @@
 #include <QMainWindow>
 #include <QList>
 #include <QString>
+#include "passwordlistgenerator.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +41,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+signals:
+    void readyToStartGenerating();
+
 private slots:
     void on_pushButton_clicked();
 
@@ -51,9 +55,17 @@ private slots:
 
     void on_pushButtonCheckAll_clicked();
 
+
+
+public slots:
+    void startGenerating();
+    void generationComplete();
+
 private:
     Ui::MainWindow *ui;
     QList<QString> m_passwords;
+    PasswordListGenerator *m_pgen;
+
 };
 
 #endif // MAINWINDOW_H

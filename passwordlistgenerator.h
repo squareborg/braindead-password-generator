@@ -24,8 +24,10 @@
 #define PASSWORDLISTGENERATOR_H
 #include <QList>
 #include <QString>
-class PasswordListGenerator
+#include <QObject>
+class PasswordListGenerator : public QObject
 {
+    Q_OBJECT
 public:
     PasswordListGenerator();
     bool do_case;
@@ -48,8 +50,14 @@ public:
     void setKeywords(QList<QString> keywords);
     QList<QString> getComboList();
     void setComboList(QList<QString> combo_list);
-    QList<QString> generatePasswords();
+    void generatePasswords();
 
+
+signals:
+    void passwordGenerationComplete();
+
+public slots:
+    void startPasswordGeneration();
 
 private:
     QString m_f_name;
@@ -60,6 +68,13 @@ private:
     QList<QString> m_suffixes;
     QList<QString> m_combo_list;
 
+
+
+public:
+    QList<QString> password_list;
+
 };
+
+
 
 #endif // PASSWORDLISTGENERATOR_H
