@@ -103,6 +103,11 @@ void MainWindow::on_pushButton_clicked()
         qDebug() << "Suffix Symbols not null so adding to m_pgen";
         m_pgen->setComboList(ui->lineEditPasswordJoinChars->text().split(','));
     }
+    if (ui->lineEditPadLength->text().length()>0){
+        qDebug() << "Auto Padding  not null so adding to m_pgen";
+		m_pgen->do_pad = true;
+        m_pgen->setPadLength(ui->lineEditPadLength->text().toInt());
+    }
 
 
     ui->statusBar->setStatusTip("Generating please wait...");

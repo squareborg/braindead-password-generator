@@ -36,6 +36,7 @@ public:
     bool do_leet;
     bool do_leet_all;
     bool do_sort;
+    bool do_pad;
     QString getFName();
     void setFName(QString f_name);
     QString getLName();
@@ -50,6 +51,8 @@ public:
     void setKeywords(QList<QString> keywords);
     QList<QString> getComboList();
     void setComboList(QList<QString> combo_list);
+    void setPadLength(int length);
+    int getPadLength();
     void generatePasswords();
 
 
@@ -63,6 +66,7 @@ private:
     QString m_f_name;
     QString m_l_name;
     QString m_company;
+	int m_pad_length;
     QList<QString> m_keywords;
     QList<QString> m_prefixes;
     QList<QString> m_suffixes;

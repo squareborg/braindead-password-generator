@@ -101,6 +101,13 @@ QList<QString> PasswordListGenerator::getComboList(){
     return m_combo_list;
 }
 
+int PasswordListGenerator::getPadLength(){
+    return m_pad_length;
+}
+
+void PasswordListGenerator::setPadLength(int length){
+    m_pad_length = length;
+}
 void PasswordListGenerator::startPasswordGeneration(){
      QFuture<void> future = QtConcurrent::run(this,&PasswordListGenerator::generatePasswords);
 
@@ -237,7 +244,26 @@ void PasswordListGenerator::generatePasswords(){
 
     password_list.append(prefixed_list);
     }
+	// do pad
+	if (do_pad){
+		qDebug() << "Doing pad";
+        QList<QString> padded_list;
+        foreach (QString s, password_list){
+			if (s.length() < getPadLength()){
+				QString str_in_progress = "";
+				str_in_progress.append(s);
+				int dif = getPadLength() - s.length();
+				for (int i=1;i<=dif+1;i++){
+					qDebug() << "I: " << i;
+					str_in_progress.append(QString::number(i));
+				}
+				padded_list.append(str_in_progress);
+				qDebug() << "pad " << str_in_progress;	
+			}
+		}
 
+	password_list.append(padded_list);
+	}
     //last
     if (do_case){
         qDebug() << "Doing case";
