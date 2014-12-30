@@ -3,13 +3,37 @@ Braindead Password Generator
 
 REQUIRES QT.
 
-This is a targeted password generator for targeting a specific person, It uses their name and company as well as keywords to generate passwords.
+This is a targeted password generator for targeting a specific person, It uses their name and company as well as keywords to generate passwords. After spending 12 years doing front line IT support for small to medium enterprise I have noticed that there is some low hanging fruit with a lot of users passwords, they will use passwords that are easy to guess based on their name or company name or both, maybe a kids name or sports team. The user may belive they have secured their password by adding a number on leet one or all the letters.  
+
+If they password is required to be a certain length they will usually pick a password and then append incrementing numbers on the end "jeff1234" 
+
+If it requires an uppercase letter they will usualy upercase the first letter
+
+"Jeff1234"
+
+If they require to use non dictionary words they will usually replace letters in the word with numbers
+
+"J3ff1234"
+
+and if they require a symbol they will usually put it at the very first character or at the very end or both.
+
+"!J3ff1234!"
+
+with very little information you can create a targeted password list that has worked for me in the past. and this tool lets you easily and target all the above and more.
 
 It's MIT Licensed and writted in Qt. 
 
 I have written to scractch a specifc itch of my own but this should be useful to others. It's also my first project in Qt so i'm learning.
 
 It's not quite a featured as I wanted it.
+
+What it does now:
+
+It will take a users first name, last name, company name, and other seed words to create a targetted password list to be used in bruteforce attacks against a specific user. 
+
+Few a series of controls you can have it leet letters of the password, join words together with certain symbols aswell as prepend characters to the start or the end of the word. It can also pad words to a certain length with numbers.
+
+
 
 TODO
 ----
