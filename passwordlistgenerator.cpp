@@ -24,7 +24,7 @@
 #include <QDebug>
 #include <QHash>
 #include <QFuture>
-#include <QtConcurrent>
+#include <QtCore>
 
 QString ucFirst(const QString str) {
     if (str.size() < 1) {
