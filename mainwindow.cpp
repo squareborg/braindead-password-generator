@@ -35,10 +35,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_pgen,SIGNAL(passwordGenerationComplete()),this,SLOT(generationComplete()));
 
     ui->setupUi(this);
-    ui->checkBoxUsernameCombo->setChecked(true);
     ui->checkBoxLeet->setChecked(true);
     ui->checkBoxCase->setChecked(true);
     ui->checkBoxPasswordJoin->setChecked(true);
+    ui->checkBoxSortPasswords->setChecked(true);
     QPalette lcdpalette;
     lcdpalette.setColor(QPalette::Background, QColor(0, 0, 0));
     lcdpalette.setColor(QPalette::Base, QColor(0, 0, 0));
@@ -64,10 +64,6 @@ void MainWindow::on_pushButton_clicked()
         m_pgen->do_case = true;
     else
         m_pgen->do_case = false;
-    if (ui->checkBoxUsernameCombo->isChecked())
-            m_pgen->do_username_combo = true;
-    else
-        m_pgen->do_username_combo = false;
     if (ui->checkBoxPasswordJoin->isChecked())
             m_pgen->do_password_join = true;
     else
@@ -158,7 +154,6 @@ void MainWindow::on_pushButtonUncheckAll_clicked()
     ui->checkBoxLeetAll->setChecked(false);
     ui->checkBoxPasswordJoin->setChecked(false);
     ui->checkBoxSortPasswords->setChecked(false);
-    ui->checkBoxUsernameCombo->setChecked(false);
 }
 
 void MainWindow::on_pushButtonCheckAll_clicked()
@@ -168,5 +163,4 @@ void MainWindow::on_pushButtonCheckAll_clicked()
     ui->checkBoxLeetAll->setChecked(true);
     ui->checkBoxPasswordJoin->setChecked(true);
     ui->checkBoxSortPasswords->setChecked(true);
-    ui->checkBoxUsernameCombo->setChecked(true);
 }

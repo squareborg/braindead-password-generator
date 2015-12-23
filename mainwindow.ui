@@ -163,27 +163,11 @@
        <string>case</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBoxUsernameCombo">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>221</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="statusTip">
-       <string>Will generate passwords based on possible usernames of user.</string>
-      </property>
-      <property name="text">
-       <string>Username combo as password</string>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="checkBoxPasswordJoin">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>50</y>
+        <y>40</y>
         <width>191</width>
         <height>20</height>
        </rect>
@@ -198,7 +182,7 @@
      <widget class="QLineEdit" name="lineEditPasswordJoinChars">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>10</x>
         <y>70</y>
         <width>113</width>
         <height>21</height>

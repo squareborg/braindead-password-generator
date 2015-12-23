@@ -114,9 +114,6 @@ void PasswordListGenerator::startPasswordGeneration(){
 }
 
 void PasswordListGenerator::generatePasswords(){
-    qDebug() << "here it is";
-    qDebug() << ucFirst("ste");
-    qDebug() << "Did it work";
 
     if (!m_f_name.isEmpty())
         password_list.append(m_f_name);
@@ -125,28 +122,7 @@ void PasswordListGenerator::generatePasswords(){
     if (!m_company.isEmpty())
         password_list.append(m_company);
     if(!m_keywords.empty()){
-        qDebug() << "Adding keywords";
         password_list.append(m_keywords);
-    }
-    if(do_username_combo){
-        //generate passwords based on possible username
-        QList<QString> username_list;
-        qDebug() << "Doing username";
-        username_list.append(m_f_name);
-        username_list.append(m_l_name);
-        username_list.append(m_f_name+m_l_name);
-        username_list.append(m_f_name+"."+m_l_name);
-        username_list.append(m_f_name+"_"+m_l_name);
-        username_list.append(m_f_name[0]+m_l_name);
-        username_list.append(m_l_name+m_f_name[0]);
-        username_list.append(m_f_name+m_l_name[0]);
-        username_list.append(m_f_name[0]+"."+m_l_name);
-        username_list.append(m_f_name[0]+"_"+m_l_name);
-        username_list.append(m_l_name+"."+m_f_name[0]);
-        username_list.append(QString(m_f_name[0])+QString(m_l_name[0]));
-        username_list.append(QString(m_f_name[0])+"."+QString(m_l_name[0]));
-        username_list.append(QString(m_f_name[0])+"_"+QString(m_l_name[0]));
-        password_list.append(username_list);
     }
 
     if(do_leet){
@@ -168,7 +144,6 @@ void PasswordListGenerator::generatePasswords(){
             for(i = s.begin(); i != s.end();i++){
                 //iterate over the word letter by letter and record index of leetable char
                 if (leet_map.contains(i->toUpper())){
-                    //qDebug() << "Leetable: " << *i;
                     //This letter is leetable log it in the map
                     leetable_index[count]=i->toUpper();
                 }
@@ -180,11 +155,8 @@ void PasswordListGenerator::generatePasswords(){
             for(int i2 = 0; i2!= leetable_index.count(); i2++){
                 QString temp_password=s;
                 //for each leetable in leetable_index leet the char
-                //qDebug() << "Key: " << leetable_index.keys()[i2];
-                //qDebug() << "Value: " << leetable_index[leetable_index.keys()[i2]];
                 temp_password[leetable_index.keys()[i2]] = leet_map[leetable_index[leetable_index.keys()[i2]]];
                 temp_password_all[leetable_index.keys()[i2]] = leet_map[leetable_index[leetable_index.keys()[i2]]];
-                //qDebug() << "Temp password: "+temp_password;
                 leeted_list.append(temp_password);
                 if(do_leet_all && temp_password_all!=temp_password)
                     leeted_list.append(temp_password_all);
@@ -204,7 +176,7 @@ void PasswordListGenerator::generatePasswords(){
         qDebug() << "Joining: ";
         QList<QString> joined_list;
         foreach(QString p,password_list){
-            //qDebug() << "word: " << p;
+            qDebug() << "word: " << p;
             foreach(QString ps,password_list){
                 foreach(QString join_char,m_combo_list){
                     joined_list.append(p+join_char+ps);
