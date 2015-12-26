@@ -3,7 +3,7 @@ Braindead Password Generator
 
 REQUIRES QT.
 
-This is a targeted password generator for targeting a specific person, It uses their name and company as well as keywords to generate passwords. After spending 12 years doing front line IT support for small to medium enterprise I have noticed that there is some low hanging fruit with a lot of users passwords, they will use passwords that are easy to guess based on their name or company name or both, maybe a kids name or sports team. The user may belive they have secured their password by adding a number on leet one or all the letters.  
+This is a graphical targeted password generator for targeting a specific person, It uses their name and company as well as keywords to generate passwords. After spending 12 years doing front line IT support for small to medium enterprise I have noticed that there is some low hanging fruit with a lot of users passwords, they will use passwords that are easy to guess based on their name or company name or both, maybe a kids name or sports team. The user may belive they have secured their password by adding a number on leet one or all the letters.  
 
 If they password is required to be a certain length they will usually pick a password and then append incrementing numbers on the end "jeff1234" 
 
