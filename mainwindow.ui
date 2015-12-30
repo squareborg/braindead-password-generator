@@ -162,6 +162,9 @@
       <property name="text">
        <string>case</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QCheckBox" name="checkBoxPasswordJoin">
       <property name="geometry">
@@ -187,6 +190,9 @@
         <width>113</width>
         <height>21</height>
        </rect>
+      </property>
+      <property name="text">
+       <string>_,.,-</string>
       </property>
      </widget>
     </widget>
@@ -225,6 +231,9 @@
       <property name="text">
        <string>Leet All</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
@@ -245,6 +254,9 @@
       </property>
       <property name="statusTip">
        <string>Comma seperated list of symbols to prefix each word.</string>
+      </property>
+      <property name="text">
+       <string>1,!,$,%</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_2">
@@ -288,6 +300,9 @@
       <property name="statusTip">
        <string>Comma seperated list of symbols to suffix each word.</string>
       </property>
+      <property name="text">
+       <string>1,!,$,%</string>
+      </property>
      </widget>
      <widget class="QLabel" name="label_4">
       <property name="geometry">
@@ -319,6 +334,9 @@
       </property>
       <property name="statusTip">
        <string>Automaticall add incrementing numbers to end of short words to supplied length</string>
+      </property>
+      <property name="text">
+       <string>8</string>
       </property>
      </widget>
     </widget>
@@ -407,6 +425,9 @@
      </property>
      <property name="text">
       <string>Sort passwords</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>

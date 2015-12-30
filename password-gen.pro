@@ -29,7 +29,7 @@ QT       += core gui concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = password-gen
+TARGET = braindead-password-gen
 TEMPLATE = app
 
 
